@@ -1,0 +1,41 @@
+<html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<style> circle {fill: black; stroke: black;} </style>
+<body onload='init()'>
+<svg width=800 height=600>
+</svg>
+<script>
+async function init() {
+
+var totals = await d3.csv("https://github.com/sarahaliene/Narrative-Visualization/raw/main/yearly-totals.csv");
+
+
+var w = 700;
+var h = 500;
+var m = 50;
+
+var xScale = d3.scaleBand().data(totals).domain([d.year]).range([0,w]);
+
+var yScale = d3.scaleLinear().domain([0,2500000]).range([(h - 2 * m),0]);
+
+d3.select("svg")
+	.attr("width", w)
+	.attr("height", h)
+	.append("g")
+	.attr("transform", "translate("+m+","+m+")");
+
+d3.select("svg").selectAll("circle").data(totals).enter().append("circle")
+  .attr("cx", function(d) {return d.Year;})
+  .attr("cy", function(d) {return yScale(d.EstimatedNumber);})
+  .attr("r", 5);
+
+d3.select("svg").append("g").attr("transform", "translate("+m+","+m+")").call(d3.axisLeft(yScale));
+
+d3.select("svg").append("g").attr("transform","translate("+m+","+450+")").call(d3.axisBottom(xScale));
+
+}
+
+
+</script>
+</body>
+</html>

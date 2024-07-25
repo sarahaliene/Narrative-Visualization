@@ -1,1 +1,113 @@
+<html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<style> rect {stroke: black;} </style>
+<body>
+<svg width=1000 height=800>
+</svg>
+<script>
 
+var data = ([
+[2001,2163373],
+[2002,2058547],
+[2003,2110270],
+[2004,2217826],
+[2005,2102099],
+[2006,2149660],
+[2007,2024768],
+[2008,2075647],
+[2009,2003585],
+[2010,2343157],
+[2011,2356394],
+[2012,2305535],
+[2013,2238615],
+[2014,2109815],
+[2015,2165482],
+[2016,2228954],
+[2017,2292945],
+[2018,2120430],
+[2019,2087176],
+[2020,1985004],
+[2021,1958273],
+[2022,2105245]]);
+
+var w = 900;
+var h = 700;
+var m = 50;
+
+var svg = d3.select("svg")
+	.append("svg")
+	.attr("width", w)
+	.attr("height", h)
+	.append("g")
+	.attr("transform","translate("+m+","+m+")");
+
+var xScale = d3.scaleBand().domain([2001,
+2002,
+2003,
+2004,
+2005,
+2006,
+2007,
+2008,
+2009,
+2010,
+2011,
+2012,
+2013,
+2014,
+2015,
+2016,
+2017,
+2018,
+2019,
+2020,
+2021,
+2022
+]).range([50,w - 50]).padding(0.3);
+var xAxis = d3.axisBottom().scale(xScale);
+
+var yScale = d3.scaleLinear().domain([0,2500000]).range([h - 75, 0]);
+var yAxis = d3.axisLeft().scale(yScale);
+
+svg.selectAll("rect").data(data).enter().append("rect")
+	.attr("x", function(d) {return xScale(d[0]);})
+	.attr("y", function(d) {return yScale(d[1]);})
+	.attr("width", xScale.bandwidth())
+	.attr("height", function(d) {return yScale(h) - (yScale(d[1]));})
+	.attr("fill", "lightpink")
+	.on("mouseover", function(d) { 
+			var x = parseFloat(d3.select(this).attr("x")) - xScale.bandwidth() * 2;
+			var y = parseFloat(d3.select(this).attr("y")) - 30;
+			d3.select(this).attr("fill", "orange");
+			svg.append("rect")
+				.attr("id", "box")
+				.attr("x",x)
+				.attr("y",y)
+				.attr("width", xScale.bandwidth() * 3)
+				.attr("height", xScale.bandwidth())
+				.attr("fill", "ivory");
+			svg.append("text")
+				.attr("id", "tooltip")
+				.attr("x", x + 38)
+				.attr("y", y + 19)
+				.attr("text-anchor", "middle")
+				.attr("font-family", "sans-serif")
+				.attr("font-size", "16px")
+				.attr("font-weight", "bold")
+				.attr("fill", "black")
+				.text(d[1]);})
+	.on("mouseout", function(d) { 
+			d3.select(this).attr("fill", "lightpink");
+			d3.select("#tooltip").remove();
+			d3.select("#box").remove();});
+
+	
+
+svg.append("g").attr("transform","translate("+50+","+0+")").call(d3.axisLeft(yScale));
+
+svg.append("g").attr("transform","translate("+0+","+625+")").call(d3.axisBottom(xScale));
+
+
+</script>
+</body>
+</html>

@@ -1,11 +1,36 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
+                                   initial-scale=1.0">
+    <title>Narrative Visualization</title>
+</head>
+
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> rect {stroke: black;} </style>
-<body>
-<svg width=1000 height=800>
-</svg>
+
+<body style="background-color:#ECC5C0;">
+    <header>
+        <h1>
+            Narrative Visualization Project
+        </h1>
+    </header>
+    <main>
+        <p>
+            This is where your content goes.
+        </p>
+    </main>
+
+<div id = "svgcontainer">
+</div>
+
 <script>
 
+//Set up data
+
+//Year, EstimatedTotal
 var data = ([
 [2001,2163373],
 [2002,2058547],
@@ -30,16 +55,44 @@ var data = ([
 [2021,1958273],
 [2022,2105245]]);
 
+//Year,	Assault,	LegalIntervention,	SexualAssault,	SelfHarm,	Other
+var categories = ([
+[2001,1696441,45122,67331,306759,47721],
+[2002,1586315,47242,76317,309952,38719],
+[2003,1555018,43851,73834,395322,42245],
+[2004,1628065,58930,79855,410133,40841],
+[2005,1567432,56232,74198,359874,44363],
+[2006,1589223,59343,71296,383294,46500],
+[2007,1412180,60757,74676,379139,98016],
+[2008,1535760,53691,73809,358943,53442],
+[2009,1472129,55384,63096,358769,54206],
+[2010,1705942,73505,70963,444737,48009],
+[2011,1677097,77083,78521,473134,50561],
+[2012,1630398,70622,80687,461367,62461],
+[2013,1497717,80259,72910,477361,110368],
+[2014,1412163,65013,72762,447271,112606],
+[2015,1430147,52702,80590,487013,115031],
+[2016,1458141,59220,88431,483372,139789],
+[2017,1489827,59255,103437,475845,164580],
+[2018,1331462,61289,97284,473364,157030],
+[2019,1151369,61566,98786,470248,305209],
+[2020,1168223,55676,93140,461286,206679],
+[2021,1128261,45524,101215,466865,216408],
+[2022,1346640,55111,115695,529456,58343]
+	]);
+
 var w = 900;
-var h = 700;
+var h = 600;
 var m = 50;
 
-var svg = d3.select("svg")
+
+var scene = d3.select("#svgcontainer")
 	.append("svg")
 	.attr("width", w)
 	.attr("height", h)
 	.append("g")
 	.attr("transform","translate("+m+","+m+")");
+
 
 var xScale = d3.scaleBand().domain([2001,
 2002,
@@ -69,24 +122,25 @@ var xAxis = d3.axisBottom().scale(xScale);
 var yScale = d3.scaleLinear().domain([0,2500000]).range([h - 75, 0]);
 var yAxis = d3.axisLeft().scale(yScale);
 
-svg.selectAll("rect").data(data).enter().append("rect")
+
+scene.selectAll("rect").data(data).enter().append("rect")
 	.attr("x", function(d) {return xScale(d[0]);})
 	.attr("y", function(d) {return yScale(d[1]);})
 	.attr("width", xScale.bandwidth())
 	.attr("height", function(d) {return yScale(h) - (yScale(d[1]));})
-	.attr("fill", "lightpink")
+	.attr("fill", "#C5908E")
 	.on("mouseover", function(d) { 
 			var x = parseFloat(d3.select(this).attr("x")) - xScale.bandwidth() * 2;
 			var y = parseFloat(d3.select(this).attr("y")) - 30;
-			d3.select(this).attr("fill", "orange");
-			svg.append("rect")
+			d3.select(this).attr("fill", "#fdeef4");
+			scene.append("rect")
 				.attr("id", "box")
 				.attr("x",x)
 				.attr("y",y)
 				.attr("width", xScale.bandwidth() * 3)
 				.attr("height", xScale.bandwidth())
-				.attr("fill", "ivory");
-			svg.append("text")
+				.attr("fill", "ivory")
+			scene.append("text")
 				.attr("id", "tooltip")
 				.attr("x", x + 38)
 				.attr("y", y + 19)
@@ -97,17 +151,80 @@ svg.selectAll("rect").data(data).enter().append("rect")
 				.attr("fill", "black")
 				.text(d[1]);})
 	.on("mouseout", function(d) { 
-			d3.select(this).attr("fill", "lightpink");
+			d3.select(this).attr("fill", "#C5908E");
 			d3.select("#tooltip").remove();
-			d3.select("#box").remove();});
+			d3.select("#box").remove();})
+	.on("click", function(d) {
+		
+		var group1 = scene.append("g");
 
-	
+		group1.selectAll("rect").data(categories).enter().append("rect")
+			.transition()
+			.duration(2000)
+			.attr("x", function(d) {return xScale(d[0]);})
+			.attr("y", function(d) {return yScale(d[4]);})
+			.attr("width", xScale.bandwidth())
+			.attr("height", function(d) {return yScale(h) - (yScale(d[4]));})
+			.attr("fill", "#fc6c85");
+		
 
-svg.append("g").attr("transform","translate("+50+","+0+")").call(d3.axisLeft(yScale));
+		var group2 = scene.append("g");
 
-svg.append("g").attr("transform","translate("+0+","+625+")").call(d3.axisBottom(xScale));
+		group2.selectAll("rect").data(categories).enter().append("rect")
+			.transition().delay(2000)
+			.duration(2000)
+			.attr("x", function(d) {return xScale(d[0]);})
+			.attr("y", function(d) {return yScale(d[4] + d[5]);})
+			.attr("width", xScale.bandwidth())
+			.attr("height", function(d) {return yScale(h) - yScale(d[5]);})
+			.attr("fill", "#78c7c7");
+
+
+		var group3 = scene.append("g");
+
+		group3.selectAll("rect").data(categories).enter().append("rect")
+			.transition().delay(4000)
+			.duration(2000)
+			.attr("x", function(d) {return xScale(d[0]);})
+			.attr("y", function(d) {return yScale(d[4] + d[3] + d[5]);})
+			.attr("width", xScale.bandwidth())
+			.attr("height", function(d) {return yScale(h) - yScale(d[3]);})
+			.attr("fill", "#b93b8f");
+
+		var group4 = scene.append("g");
+
+		group4.selectAll("rect").data(categories).enter().append("rect")
+			.transition().delay(6000)
+			.duration(2000)
+			.attr("x", function(d) {return xScale(d[0]);})
+			.attr("y", function(d) {return yScale(d[5] + d[2] + d[3] + d[4]);})
+			.attr("width", xScale.bandwidth())
+			.attr("height", function(d) {return yScale(h) - yScale(d[2]);})
+			.attr("fill", "#7d1b7e");
+
+		var group5 = scene.append("g");
+
+		group5.selectAll("rect").data(categories).enter().append("rect")
+			.transition().delay(8000)
+			.duration(2000)
+			.attr("x", function(d) {return xScale(d[0]);})
+			.attr("y", function(d) {return yScale(d[1] + d[2] + d[3] + d[4] + d[5]);})
+			.attr("width", xScale.bandwidth())
+			.attr("height", function(d) {return yScale(h) - yScale(d[1]);})
+			.attr("fill", "#e8adaa");});
+
+
+scene.append("g").attr("transform","translate("+50+","+0+")").call(d3.axisLeft(yScale));
+
+scene.append("g").attr("transform","translate("+0+","+525+")").call(d3.axisBottom(xScale));
+
 
 
 </script>
+
+
+<footer>
+        <p>Sarah Butt</p>
+</footer>
 </body>
 </html>

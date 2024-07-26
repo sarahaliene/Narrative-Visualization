@@ -73,7 +73,9 @@
 
 //Set up data
 
-var frame = document.getElementById("#container").src = "https://sarahaliene.github.io/Narrative-Visualization/" + ReturnURL();
+var frame = document.getElementById("#container");
+var box = d3.select(frame);
+box.attr("src", "https://sarahaliene.github.io/Narrative-Visualization/");
 
 
 

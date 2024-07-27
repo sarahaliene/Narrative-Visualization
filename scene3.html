@@ -23,7 +23,9 @@
         <p>
             This is where your content goes.
         </p>
-
+        <p>
+            <a href = "https://sarahaliene.github.io/Narrative-Visualization/">Back</a>
+        </p>
        
     </main>
 
@@ -35,29 +37,6 @@
 <script>
 //Set up data
 //CutPierce Fall    ForeignBody InhalationSuffocation   OtherSpecified  Poisoning   StruckByAgainst UnknownUnspecified
-var data2001 = [0.2048,0,0,0,0.0724,0.7035,0.0193,0]
-var data2002 = [0.201,0,0,0,0.0851,0.6936,0.0203,0]
-var data2003 = [0.1743,0,0,0,0.1092,0.6928,0.0237,0]
-var data2004 = [0.1942,0,0,0,0.1165,0.6639,0.0255,0]
-var data2005 = [0.2192,0,0,0,0.161,0.5758,0.0286,0.0155]
-var data2006 = [0.201,0,0,0,0.1616,0.5645,0.0546,0.0183]
-var data2007 = [0.2032,0,0,0,0.202,0.5215,0.0493,0.024]
-var data2008 = [0.2117,0,0,0,0.194,0.5583,0.036,0]
-var data2009 = [0.227,0,0,0,0.1582,0.5853,0.0295,0]
-var data2010 = [0.2098,0,0,0,0.1571,0.5985,0.0345,0]
-var data2011 = [0.2162,0,0,0.0089,0.1457,0.5967,0.0325,0]
-var data2012 = [0.2345,0,0,0,0.1579,0.5755,0.0321,0]
-var data2013 = [0.2301,0,0.0112,0,0.1787,0.545,0.035,0]
-var data2014 = [0.2523,0,0,0,0.1735,0.5412,0.0329,0]
-var data2015 = [0.2335,0,0.009,0,0.1815,0.5417,0.0343,0]
-var data2016 = [0.2379,0,0.0101,0.0085,0.1566,0.5507,0.0363,0]
-var data2017 = [0.2407,0.0101,0.0121,0,0.1425,0.5497,0.0448,0]
-var data2018 = [0.2853,0,0,0.0142,0.1401,0.5109,0.0495,0]
-var data2019 = [0.2957,0.0118,0,0.0169,0.1088,0.5109,0.0559,0]
-var data2020 = [0.3314,0.0128,0,0.0134,0.0974,0.4959,0.049,0]
-var data2021 = [0.3363,0,0,0.0172,0.1234,0.4725,0.0507,0]
-var data2022 = [0.3029,0.012,0.0139,0.025,0.1261,0.4722,0.0479,0];
-
 
 var years = [[2001,[0.2048,0,0,0,0.0724,0.7035,0.0193,0]],
 [2002,[0.201,0,0,0,0.0851,0.6936,0.0203,0]],
@@ -83,7 +62,7 @@ var years = [[2001,[0.2048,0,0,0,0.0724,0.7035,0.0193,0]],
 [2022,[0.3029,0.012,0.0139,0.025,0.1261,0.4722,0.0479,0]
 ]];
 
-var colors = ["#C5908E","#fc6c85","#78c7c7","#b93b8f","#7d1b7e","#e8adaa"];
+var colors = ["#008080","#FC6C85","#78C7C7","#B93B8F","#7D1B7E","#617C58","#D4A017","#3090C7"];
 
 var percents = ([[2001,"14.20%"],[2002,"15.00%"],[2003,"18.70%"],[2004,"18.60%"],[2005,"17.30%"],
 [2006,"17.90%"],[2007,"18.80%"],[2008,"17.40%"],[2009,"17.90%"],[2010,"19.10%"],[2011,"20.10%"],
@@ -114,12 +93,12 @@ d3.select("#chartcontainer")
 
 //Set up pie function
 var pie = d3.pie();
-var arc = d3.arc().innerRadius(0).outerRadius(100);
+var arc = d3.arc().innerRadius(0).outerRadius(200);
 
 d3.select("#chartcontainer").select("svg").selectAll("path").data(pie(data2022)).enter().append("path")
     .attr("d", arc)
     .attr("fill", function(d,i) {return colors[i];})
-    .attr("transform", "translate("+150+","+150+")");;
+    .attr("transform", "translate("+600+","+200+")");;
 
 
 scene.selectAll("rect").data(years).enter().append("rect")
@@ -138,9 +117,8 @@ scene.selectAll("rect").data(years).enter().append("rect")
         d3.select("#chartcontainer").select("svg").selectAll("*").remove()
         d3.select("#chartcontainer").select("svg").selectAll("path").data(pie(d[1])).enter().append("path")
             .attr("d", arc)
-            .attr("id","chart")
             .attr("fill", function(d,i) {return colors[i];})
-            .attr("transform", "translate("+150+","+150+")")
+            .attr("transform", "translate("+600+","+200+")")
     });
     
 scene.selectAll("text").data(years).enter().append("text")
@@ -151,7 +129,14 @@ scene.selectAll("text").data(years).enter().append("text")
     .attr("font-size", "16px")
     .attr("font-weight", "bold")
     .attr("fill", "black")
-    .text(function(d) {return d[0];});
+    .text(function(d) {return d[0];})
+    .on("click", function(d) {
+        d3.select("#chartcontainer").select("svg").selectAll("*").remove()
+        d3.select("#chartcontainer").select("svg").selectAll("path").data(pie(d[1])).enter().append("path")
+            .attr("d", arc)
+            .attr("fill", function(d,i) {return colors[i];})
+            .attr("transform", "translate("+600+","+200+")")
+    });
     
 </script>
 

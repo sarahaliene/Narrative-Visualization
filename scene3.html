@@ -74,24 +74,25 @@ async function init() {
 
     //Set up pie function
     var pie = d3.pie();
+    var pdata = pie(data);
     
     //Set up arc function & variables
     var pw = 300;
     var ph = 300;
     var outerRadius = pw / 2;
     var innerRadius = 0;
-    var arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
-    var arcs = chart.selectAll("g.arc")
-                .data(pie(data))
-                .enter()
-                .append("g")
-                .attr("class", "arc")
-                .attr("transform", "translate(" + outerRadius + ", " + outerRadius + ")");
-    arcs.append("path")
-        .attr("fill", function(d,i) { return colors(i);})
-        .attr("d", function(d,i) {
-            return arc(d, i);
-        });
+    //var arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
+   // var arcs = chart.selectAll("g.arc")
+               // .data(pie(data))
+               // .enter()
+               // .append("g")
+               // .attr("class", "arc")
+               // .attr("transform", "translate(" + outerRadius + ", " + outerRadius + ")");
+   // arcs.append("path")
+       // .attr("fill", function(d,i) { return colors(i);})
+      //  .attr("d", function(d,i) {
+          //  return arc(d, i);
+      //  });
     
     scene.selectAll("rect").data(years).enter().append("rect")
         .attr("x", function(d) {return xScale(d);})

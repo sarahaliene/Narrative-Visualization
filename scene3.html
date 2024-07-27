@@ -82,7 +82,7 @@ async function init() {
     var outerRadius = pw / 2;
     var innerRadius = 0;
     var arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
-    var arcs = d3.select("#chartcontainer").selectAll("g.arc")
+    var arcs = d3.select("#chartcontainer").selectAll("arc")
                 .data(pdata)
                 .enter()
                 .append("g")

@@ -39,6 +39,8 @@ async function init() {
 //"Self-Harm Other Specified"	"Self-Harm Poisoning"	"Self-Harm Struck by /Against"	"Self-Harm Unknown / Unspecified"
 
     var data = await d3.csv("https://sarahaliene.github.io/Narrative-Visualization/Methods.csv");
+    var data2 = [0.3029,0.012,0.0139,0.025,0.1261,0.4722,0.0479];
+
     
     var years = ([2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,
     2015,2016,2017,2018,2019,2020,2021,2022]);
@@ -74,7 +76,7 @@ async function init() {
 
     //Set up pie function
     var pie = d3.pie();
-    var pdata = pie(data[1]);
+    var pdata = pie(data2);
     
     //Set up arc function & variables
     var pw = 300;

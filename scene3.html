@@ -11,7 +11,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> rect {stroke: black;} </style>
 
-<body style="background-color:#ECC5C0;">
+<body onload='init()' style="background-color:#ECC5C0;">
     <header>
         <h1>
             Narrative Visualization Project
@@ -22,60 +22,22 @@
             This is where your content goes.
         </p>
 
-        <table>
-          <tr>
-            <th colspan = "10">Year</th>
-          </tr>
-          <tr>
-            <td>2001</td>
-            <td>2002</td>
-            <td>2003</td>
-            <td>2004</td>
-            <td>2005</td>
-            <td>2006</td>
-            <td>2007</td>
-            <td>2008</td>
-            <td>2009</td>
-            <td>2010</td>
-          </tr>
-          <tr>
-            <td>2011</td>
-            <td>2012</td>
-            <td>2013</td>
-            <td>2014</td>
-            <td>2015</td>
-            <td>2016</td>
-            <td>2017</td>
-            <td>2018</td>
-            <td>2019</td>
-            <td>2020</td>
-          </tr>
-          <tr>
-            <td>2021</td>
-            <td>2022</td>
-            <td>Back</td>
-          </tr>
-        </table> 
-
+       
     </main>
 
     <div id = "container">
-
-        <iframe
-            title="iframe_Title"
-            width="100%"
-            height="500px"
-            style="border: none;">
-        </iframe>
+            
+        
     </div>
 
 <script>
 
 //Set up data
+async function init() {
 
-var frame = document.getElementById("#container");
-var box = d3.select(frame);
-box.append("g").attr("src", "https://sarahaliene.github.io/Narrative-Visualization/");
+var data = await d3.csv("https://sarahaliene.github.io/Narrative-Visualization/processed.csv");
+console.log(data);
+}
 
 
 

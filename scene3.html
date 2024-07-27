@@ -90,9 +90,7 @@ async function init() {
                 .attr("transform", "translate(" + outerRadius + ", " + outerRadius + ")");
     arcs.append("path")
         .attr("fill", function(d,i) { return colors(i);})
-        .attr("d", function(d,i) {
-            return arc(d, i);
-        });
+        .attr("d", arc);
     
     scene.selectAll("rect").data(years).enter().append("rect")
         .attr("x", function(d) {return xScale(d);})

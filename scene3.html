@@ -65,7 +65,7 @@ async function init() {
         .append("g")
         .attr("transform","translate("+0+","+m+")");
 
-    var chart = d3.select("#chartcontainer")
+    d3.select("#chartcontainer")
             .append("svg")
             .attr("width", w)
             .attr("height", 500)
@@ -81,8 +81,8 @@ async function init() {
     var ph = 300;
     var outerRadius = pw / 2;
     var innerRadius = 0;
-    //var arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
-   // var arcs = chart.selectAll("g.arc")
+    var arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
+   // var arcs = d3.select("#chartcontainer").selectAll("g.arc")
                // .data(pie(data))
                // .enter()
                // .append("g")

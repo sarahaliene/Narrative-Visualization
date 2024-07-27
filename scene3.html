@@ -9,9 +9,11 @@
 </head>
 
 <script src='https://d3js.org/d3.v5.min.js'></script>
-<style> rect {stroke: black;} </style>
+<style> rect {stroke: black;}
+        body {background-color:#ECC5C0;}
+</style>
 
-<body style="background-color:#ECC5C0;">
+<body onload='init()'>
     <header>
         <h1>
             Narrative Visualization Project
@@ -29,57 +31,60 @@
     </div>
 
 <script>
-
+async function init() {
 //Set up data
-var years = ([2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,
-2015,2016,2017,2018,2019,2020,2021,2022]);
-
-var percents = ([[2001,"14.20%"],[2002,"15.00%"],[2003,"18.70%"],[2004,"18.60%"],[2005,"17.30%"],
-[2006,"17.90%"],[2007,"18.80%"],[2008,"17.40%"],[2009,"17.90%"],[2010,"19.10%"],[2011,"20.10%"],
-[2012,"20.00%"],[2013,"21.30%"],[2014,"21.30%"],[2015,"22.60%"],[2016,"21.70%"],[2017,"20.80%"],
-[2018,"22.30%"],[2019,"22.70%"],[2020,"23.20%"],[2021,"23.80%"],[2022,"25.20%"]]);
+//Year	Cause of Injury	Estimated Number	Percent of Self-Harm	Percent	Cases (Sample)
+    var data = await d3.csv("https://sarahaliene.github.io/Narrative-Visualization/processed2.csv");
     
-var w = 1200;
-var h = 200;
-var m = 50;
-
-var xScale = d3.scaleBand().domain([2001,2002,2003,2004,2005,2006,2007,2008,2009,
-2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022]).range([0, w]).padding(0.3);
-var xAxis = d3.axisBottom().scale(xScale);
-
-var scene = d3.select("#svgcontainer")
-    .append("svg")
-    .attr("width", w)
-    .attr("height", h)
-    .append("g")
-    .attr("transform","translate("+0+","+m+")");
-
-scene.selectAll("rect").data(years).enter().append("rect")
-    .attr("x", function(d) {return xScale(d);})
-    .attr("y", 0)
-    .attr("width", 50)
-    .attr("height", 50)
-    .attr("fill", "#C5908E")
-    .attr("stroke", "black")
-    .on("mouseover", function(d) {
-        d3.select(this).attr("fill", "#fdeef4")})
-    .on("mouseout", function(d) { 
-        d3.select(this).attr("fill", "#C5908E")
-        });
+    var years = ([2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,
+    2015,2016,2017,2018,2019,2020,2021,2022]);
     
-scene.selectAll("text").data(years).enter().append("text")
-    .attr("x", function(d) {return xScale(d) + 25;})
-    .attr("y", 30)
-    .attr("text-anchor", "middle")
-    .attr("font-family", "sans-serif")
-    .attr("font-size", "16px")
-    .attr("font-weight", "bold")
-    .attr("fill", "black")
-    .text(function(d) {return d;});
+    var percents = ([[2001,"14.20%"],[2002,"15.00%"],[2003,"18.70%"],[2004,"18.60%"],[2005,"17.30%"],
+    [2006,"17.90%"],[2007,"18.80%"],[2008,"17.40%"],[2009,"17.90%"],[2010,"19.10%"],[2011,"20.10%"],
+    [2012,"20.00%"],[2013,"21.30%"],[2014,"21.30%"],[2015,"22.60%"],[2016,"21.70%"],[2017,"20.80%"],
+    [2018,"22.30%"],[2019,"22.70%"],[2020,"23.20%"],[2021,"23.80%"],[2022,"25.20%"]]);
+        
+    var w = 1200;
+    var h = 200;
+    var m = 50;
+    
+    var xScale = d3.scaleBand().domain([2001,2002,2003,2004,2005,2006,2007,2008,2009,
+    2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022]).range([0, w]).padding(0.3);
+    var xAxis = d3.axisBottom().scale(xScale);
+    
+    var scene = d3.select("#svgcontainer")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h)
+        .append("g")
+        .attr("transform","translate("+0+","+m+")");
+    
+    scene.selectAll("rect").data(years).enter().append("rect")
+        .attr("x", function(d) {return xScale(d);})
+        .attr("y", 0)
+        .attr("width", 50)
+        .attr("height", 50)
+        .attr("fill", "#C5908E")
+        .attr("stroke", "black")
+        .on("mouseover", function(d) {
+            d3.select(this).attr("fill", "#fdeef4")})
+        .on("mouseout", function(d) { 
+            d3.select(this).attr("fill", "#C5908E")
+            });
+        
+    scene.selectAll("text").data(years).enter().append("text")
+        .attr("x", function(d) {return xScale(d) + 25;})
+        .attr("y", 30)
+        .attr("text-anchor", "middle")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "16px")
+        .attr("font-weight", "bold")
+        .attr("fill", "black")
+        .text(function(d) {return d;});
+    
+    
 
-
-
-
+}
 </script>
 
 

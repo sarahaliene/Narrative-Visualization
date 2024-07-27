@@ -82,12 +82,12 @@ async function init() {
     var outerRadius = pw / 2;
     var innerRadius = 0;
     var arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
-   // var arcs = d3.select("#chartcontainer").selectAll("g.arc")
-               // .data(pie(data))
-               // .enter()
-               // .append("g")
-               // .attr("class", "arc")
-               // .attr("transform", "translate(" + outerRadius + ", " + outerRadius + ")");
+    var arcs = d3.select("#chartcontainer").selectAll("g.arc")
+                .data(pdata)
+                .enter()
+                .append("g")
+                .attr("class", "arc")
+                .attr("transform", "translate(" + outerRadius + ", " + outerRadius + ")");
    // arcs.append("path")
        // .attr("fill", function(d,i) { return colors(i);})
       //  .attr("d", function(d,i) {

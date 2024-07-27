@@ -88,11 +88,11 @@ async function init() {
                 .append("g")
                 .attr("class", "arc")
                 .attr("transform", "translate(" + outerRadius + ", " + outerRadius + ")");
-   // arcs.append("path")
-       // .attr("fill", function(d,i) { return colors(i);})
-      //  .attr("d", function(d,i) {
-          //  return arc(d, i);
-      //  });
+    arcs.append("path")
+        .attr("fill", function(d,i) { return colors(i);})
+        .attr("d", function(d,i) {
+            return arc(d, i);
+        });
     
     scene.selectAll("rect").data(years).enter().append("rect")
         .attr("x", function(d) {return xScale(d);})

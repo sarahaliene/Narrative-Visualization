@@ -11,7 +11,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> rect {stroke: black;} </style>
 
-<body onload='init()' style="background-color:#ECC5C0;">
+<body style="background-color:#ECC5C0;">
     <header>
         <h1>
             Narrative Visualization Project
@@ -25,19 +25,52 @@
        
     </main>
 
-    <div id = "container">
-            
-        
+    <div id = "svgcontainer">   
     </div>
 
 <script>
 
 //Set up data
-async function init() {
+var years = ([2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,
+2015,2016,2017,2018,2019,2020,2021,2022]);
 
-var data = await d3.csv("https://sarahaliene.github.io/Narrative-Visualization/processed.csv");
-console.log(data);
-}
+var w = 1200;
+var h = 200;
+var m = 50;
+
+var xScale = d3.scaleBand().domain([2001,2002,2003,2004,2005,2006,2007,2008,2009,
+2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022]).range([0, w]).padding(0.3);
+var xAxis = d3.axisBottom().scale(xScale);
+
+var scene = d3.select("#svgcontainer")
+    .append("svg")
+    .attr("width", w)
+    .attr("height", h)
+    .append("g")
+    .attr("transform","translate("+0+","+m+")");
+
+scene.selectAll("rect").data(years).enter().append("rect")
+    .attr("x", function(d) {return xScale(d);})
+    .attr("y", 0)
+    .attr("width", 50)
+    .attr("height", 50)
+    .attr("fill", "#C5908E")
+    .attr("stroke", "black")
+    .on("mouseover", function(d) {
+        d3.select(this).attr("fill", "#fdeef4")})
+    .on("mouseout", function(d) { 
+        d3.select(this).attr("fill", "#C5908E")
+        });
+
+scene.selectAll("text").data(years).enter().append("text")
+    .attr("x", function(d) {return xScale(d) + 25;})
+    .attr("y", 30)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "16px")
+    .attr("font-weight", "bold")
+    .attr("fill", "black")
+    .text(function(d) {return d;});
 
 
 

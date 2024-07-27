@@ -56,6 +56,11 @@ scene.selectAll("rect").data(years).enter().append("rect")
     .attr("height", 50)
     .attr("fill", "#C5908E")
     .attr("stroke", "black")
+    .on("mouseover", function(d) {
+        d3.select(this).attr("fill", "#fdeef4")})
+    .on("mouseout", function(d) { 
+        d3.select(this).attr("fill", "#C5908E")
+        });
     
 scene.selectAll("text").data(years).enter().append("text")
     .attr("x", function(d) {return xScale(d) + 25;})

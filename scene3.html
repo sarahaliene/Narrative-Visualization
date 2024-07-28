@@ -87,8 +87,10 @@ var years = [[2001,[0.2048,0,0,0,0.0724,0.7035,0.0193,0]],
 [2021,[0.3363,0,0,0.0172,0.1234,0.4725,0.0507,0]],
 [2022,[0.3029,0.012,0.0139,0.025,0.1261,0.4722,0.0479,0]
 ]];
-
+            // Teal    Wat. Pink  N.Light.Bl  Plum     D.Orchid   H.Green   Gold     Blue Ivy
 var colors = ["#008080","#FC6C85","#78C7C7","#B93B8F","#7D1B7E","#617C58","#D4A017","#3090C7"];
+var labels = ["Cut/Pierce","Fall","Foreign Body","Inhalation/Suffocation","Other - Specified","Poison",
+    "Struck By/Against","Other - Unspecified"];
 
 var percents = ([[2001,"14.20%"],[2002,"15.00%"],[2003,"18.70%"],[2004,"18.60%"],[2005,"17.30%"],
 [2006,"17.90%"],[2007,"18.80%"],[2008,"17.40%"],[2009,"17.90%"],[2010,"19.10%"],[2011,"20.10%"],
@@ -141,7 +143,8 @@ scene.selectAll("rect").data(years).enter().append("rect")
         })
     .on("click", function(d) {
         d3.select("#chartcontainer").select("svg").selectAll("*").remove()
-        d3.select("#chartcontainer").select("svg").selectAll("path").data(pie(d[1])).enter().append("path")
+        var pdata = pie(d[1])
+        d3.select("#chartcontainer").select("svg").selectAll("path").data(pdata).enter().append("path")
             .attr("d", arc)
             .attr("fill", function(d,i) {return colors[i];})
             .attr("transform", "translate("+600+","+200+")")
@@ -158,12 +161,92 @@ scene.selectAll("text").data(years).enter().append("text")
     .text(function(d) {return d[0];})
     .on("click", function(d) {
         d3.select("#chartcontainer").select("svg").selectAll("*").remove()
-        d3.select("#chartcontainer").select("svg").selectAll("path").data(pie(d[1])).enter().append("path")
+        var pdata = pie(d[1])
+        d3.select("#chartcontainer").select("svg").selectAll("path").data(pdata).enter().append("path")
             .attr("d", arc)
             .attr("fill", function(d,i) {return colors[i];})
             .attr("transform", "translate("+600+","+200+")")
     });
+
+scene.selectAll("circle").data(colors).enter().append("circle")
+    .attr("cx", function(d,i) {return 100 + (145 * i);})
+    .attr("cy", 75)
+    .attr("r", 5)
+    .attr("fill", function(d) { return d;})
+    .attr("stroke", "black");
     
+scene.append("text")
+    .attr("x", 100)
+    .attr("y", 100)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "16px")
+    .attr("fill", "black")
+    .text(labels[0]);
+
+scene.append("text")
+    .attr("x", 245)
+    .attr("y", 100)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "16px")
+    .attr("fill", "black")
+    .text(labels[1]);
+    
+scene.append("text")
+    .attr("x", 390)
+    .attr("y", 100)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "16px")
+    .attr("fill", "black")
+    .text(labels[2]);
+
+scene.append("text")
+    .attr("x", 535)
+    .attr("y", 100)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "16px")
+    .attr("fill", "black")
+    .text(labels[3]);
+
+scene.append("text")
+    .attr("x", 680)
+    .attr("y", 100)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "16px")
+    .attr("fill", "black")
+    .text(labels[4]);
+
+scene.append("text")
+    .attr("x", 825)
+    .attr("y", 100)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "16px")
+    .attr("fill", "black")
+    .text(labels[5]);
+
+scene.append("text")
+    .attr("x", 970)
+    .attr("y", 100)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "16px")
+    .attr("fill", "black")
+    .text(labels[6]);
+
+scene.append("text")
+    .attr("x", 1115)
+    .attr("y", 100)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "16px")
+    .attr("fill", "black")
+    .text(labels[7]);
+
 </script>
 
 

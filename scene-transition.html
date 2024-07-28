@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
+                                   initial-scale=1.0">
+    <title>Narrative Visualization</title>
+</head>
+
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<style> 
+        body {background-color:#ECC5C0;}
+</style>
+
+<body>
+    <header>
+        <h1>
+            Rate of Increase from 2001 to 2022
+        </h1>
+    </header>
+    <main>
+        <p>
+            This is where your content goes.
+        </p>
+        <p>
+           <a href = "https://sarahaliene.github.io/Narrative-Visualization/scene3">Next</a>
+        </p>
+        <p>
+           <a href = "https://sarahaliene.github.io/Narrative-Visualization/scene2">Back</a>
+        </p>
+       
+    </main>
+
+    <div id = "svgcontainer">   
+    </div>
+    
+
+<script>
+
+//Set up data
+//Assault   LegalIntervention   SexualAssault   Other SelfHarm   
+//Increase from 2001 to 2022
+
+
+var w = 1200;
+var h = 600;
+var m = 50;
+
+var increase = [["Assault",-0.206196974],
+    ["Legal Intervention",0.221377599],
+    ["Sexual Assault",0.718302119],
+    ["Other",0.222585445],
+    ["Self-Harm",0.72596729]];
+var colors = ["#C5908E","#7d1b7e","#b93b8f","#78c7c7","#fc6c85"];
+
+
+var scene = d3.select("#svgcontainer")
+    .append("svg")
+    .attr("width", w)
+    .attr("height", h)
+    .append("g")
+    .attr("transform","translate("+m+","+m+")");
+
+scene.selectAll("text").data(increase).enter().append("text")
+    .attr("x", m/2)
+    .attr("y", function(d,i) {return (i * 100);})
+    .attr("text-anchor", "left")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "30px")
+    .attr("font-weight", "bold")
+    .attr("fill", "black")
+    .text(function(d) {return d[0];});
+
+scene.append("text")
+    .transition()
+    .duration(2000)
+    .attr("x", 400)
+    .attr("y", 0)
+    .attr("text-anchor", "left")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "40px")
+    .attr("font-weight", "bold")
+    .attr("fill", "#C5908E")
+    .attr("stroke", "black")
+    .text(function(d) {return (increase[0][1] * 100 + "%");});
+
+scene.append("text")
+    .transition().delay(2000)
+    .duration(2000)
+    .attr("x", 400)
+    .attr("y", 100)
+    .attr("text-anchor", "left")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "40px")
+    .attr("font-weight", "bold")
+    .attr("fill", "#7d1b7e")
+    .attr("stroke", "black")
+    .text(function(d) {return ("+" + increase[1][1] * 100 + "%");});
+   
+scene.append("text")
+    .transition().delay(4000)
+    .duration(2000)
+    .attr("x", 400)
+    .attr("y", 200)
+    .attr("text-anchor", "left")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "40px")
+    .attr("font-weight", "bold")
+    .attr("fill", "#b93b8f")
+    .attr("stroke", "black")
+    .text(function(d) {return ("+" + increase[2][1] * 100 + "%");});
+
+scene.append("text")
+    .transition().delay(6000)
+    .duration(2000)
+    .attr("x", 400)
+    .attr("y", 300)
+    .attr("text-anchor", "left")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "40px")
+    .attr("font-weight", "bold")
+    .attr("fill", "#78c7c7")
+    .attr("stroke", "black")
+    .text(function(d) {return ("+" + increase[3][1] * 100 + "%");});  
+
+scene.append("text")
+    .transition().delay(8000)
+    .duration(2000)
+    .attr("x", 400)
+    .attr("y", 400)
+    .attr("text-anchor", "left")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "40px")
+    .attr("font-weight", "bold")
+    .attr("fill", "#fc6c85")
+    .attr("stroke", "black")
+    .text(function(d) {return ("+" + increase[4][1] * 100 + "%");});  
+
+
+</script>
+
+
+<footer>
+        <p>Sarah Butt - CS 416 Summer 2024 Narrative Visualization Project</p>
+</footer>
+</body>
+</html>

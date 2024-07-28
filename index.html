@@ -32,9 +32,6 @@
 <div id = "svgcontainer">
 </div>
 
-<div id = "legendcontainer">
-</div>
-
 <script>
 
 //Set up data
@@ -249,27 +246,38 @@ var button = scene.append("g").append("rect")
     .attr("id","MainButton")
     .attr("fill", "linen")
     .attr("stroke", "black")
+    .on("mouseover", function(d) { 
+        d3.select("#MainButton").style("opacity", 0.5)
+        })
+    .on("mouseout", function(d) { 
+            d3.select("#MainButton").style("opacity", 1.0)
+        })
     .on("click", function(d) {
         group1.selectAll("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+           
         group2.selectAll("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+         
         group3.selectAll("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+         
         group4.selectAll("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+          
         group5.selectAll("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+          
         })
 
 scene.append("g").append("text")
@@ -281,27 +289,38 @@ scene.append("g").append("text")
     .attr("font-weight", "bold")
     .attr("fill", "black")
     .text("All")
+    .on("mouseover", function(d) { 
+        d3.select("#MainButton").style("opacity", 0.5)
+        })
+    .on("mouseout", function(d) { 
+            d3.select("#MainButton").style("opacity", 1.0)
+        })
     .on("click", function(d) {
         group1.selectAll("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+           
         group2.selectAll("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+           
         group3.selectAll("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+ 
         group4.selectAll("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+            
         group5.selectAll("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+          
         })
 //Add buttons
 
@@ -314,6 +333,12 @@ var button1 = scene.append("g").append("rect")
     .attr("fill","#C5908E")
     .style("opacity", 0.8)
     .attr("stroke","black")
+    .on("mouseover", function(d) { 
+        d3.select("#AssaultButton").style("opacity", 0.5)
+        })
+    .on("mouseout", function(d) { 
+            d3.select("#AssaultButton").style("opacity", 0.8)
+        })
     .on("click", function(d) {
 
         d3.selectAll("rect").style("opacity", 0.0)
@@ -327,6 +352,7 @@ var button1 = scene.append("g").append("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+           
         
     });
 
@@ -339,6 +365,12 @@ scene.append("g").append("text")
     .attr("font-weight", "bold")
     .attr("fill", "black")
     .text("Assault")
+    .on("mouseover", function(d) { 
+        d3.select("#AssaultButton").style("opacity", 0.5)
+        })
+    .on("mouseout", function(d) { 
+            d3.select("#AssaultButton").style("opacity", 0.8)
+        })
     .on("click", function(d) {
 
         d3.selectAll("rect").style("opacity", 0.0)
@@ -352,6 +384,7 @@ scene.append("g").append("text")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+          
         
     });
 
@@ -364,6 +397,12 @@ var button2 = scene.append("g").append("rect")
     .attr("fill","#7d1b7e")
     .style("opacity", 0.8)
     .attr("stroke","black")
+    .on("mouseover", function(d) { 
+        d3.select("#LegalInterventionButton").style("opacity", 0.5)
+        })
+    .on("mouseout", function(d) { 
+            d3.select("#LegalInterventionButton").style("opacity", 0.8)
+        })
     .on("click", function(d) {
 
         d3.selectAll("rect").style("opacity", 0.0)
@@ -377,6 +416,7 @@ var button2 = scene.append("g").append("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+      
     });
 
 scene.append("g").append("text")
@@ -388,6 +428,12 @@ scene.append("g").append("text")
     .attr("font-weight", "bold")
     .attr("fill", "black")
     .text("Legal Intervention")
+    .on("mouseover", function(d) { 
+        d3.select("#LegalInterventionButton").style("opacity", 0.5)
+        })
+    .on("mouseout", function(d) { 
+            d3.select("#LegalInterventionButton").style("opacity", 0.8)
+        })
     .on("click", function(d) {
 
         d3.selectAll("rect").style("opacity", 0.0)
@@ -401,6 +447,7 @@ scene.append("g").append("text")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+         
     });
 
 var button3 = scene.append("g").append("rect")
@@ -412,6 +459,12 @@ var button3 = scene.append("g").append("rect")
     .attr("fill","#b93b8f")
     .style("opacity", 0.8)
     .attr("stroke","black")
+    .on("mouseover", function(d) { 
+        d3.select("#SexualAssaultButton").style("opacity", 0.5)
+        })
+    .on("mouseout", function(d) { 
+            d3.select("#SexualAssaultButton").style("opacity", 0.8)
+        })
     .on("click", function(d) {
 
         d3.selectAll("rect").style("opacity", 0.0)
@@ -425,6 +478,7 @@ var button3 = scene.append("g").append("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+         
     });
 
 scene.append("g").append("text")
@@ -436,6 +490,12 @@ scene.append("g").append("text")
     .attr("font-weight", "bold")
     .attr("fill", "black")
     .text("Sexual Assault")
+    .on("mouseover", function(d) { 
+        d3.select("#SexualAssaultButton").style("opacity", 0.5)
+        })
+    .on("mouseout", function(d) { 
+            d3.select("#SexualAssaultButton").style("opacity", 0.8)
+        })
     .on("click", function(d) {
 
         d3.selectAll("rect").style("opacity", 0.0)
@@ -449,6 +509,7 @@ scene.append("g").append("text")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+        
     });
 
 var button4 = scene.append("g").append("rect")
@@ -460,6 +521,12 @@ var button4 = scene.append("g").append("rect")
     .attr("fill","#78c7c7")
     .style("opacity", 0.8)
     .attr("stroke","black")
+    .on("mouseover", function(d) { 
+        d3.select("#OtherButton").style("opacity", 0.5)
+        })
+    .on("mouseout", function(d) { 
+            d3.select("#OtherButton").style("opacity", 0.8)
+        })
     .on("click", function(d) {
 
         d3.selectAll("rect").style("opacity", 0.0)
@@ -473,6 +540,7 @@ var button4 = scene.append("g").append("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+    
     });
 
 scene.append("g").append("text")
@@ -484,6 +552,12 @@ scene.append("g").append("text")
     .attr("font-weight", "bold")
     .attr("fill", "black")
     .text("Other")
+    .on("mouseover", function(d) { 
+        d3.select("#OtherButton").style("opacity", 0.5)
+        })
+    .on("mouseout", function(d) { 
+            d3.select("#OtherButton").style("opacity", 0.8)
+        })
     .on("click", function(d) {
 
         d3.selectAll("rect").style("opacity", 0.0)
@@ -497,6 +571,7 @@ scene.append("g").append("text")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+           
     });
 
 var button5 = scene.append("g").append("rect")
@@ -508,6 +583,12 @@ var button5 = scene.append("g").append("rect")
     .attr("fill","#fc6c85")
     .style("opacity", 0.8)
     .attr("stroke","black")
+    .on("mouseover", function(d) { 
+        d3.select("#SelfHarmButton").style("opacity", 0.5)
+        })
+    .on("mouseout", function(d) { 
+            d3.select("#SelfHarmButton").style("opacity", 0.8)
+        })
     .on("click", function(d) {
 
         d3.selectAll("circle").style("opacity", 0.0)
@@ -521,6 +602,7 @@ var button5 = scene.append("g").append("rect")
             .transition()
             .duration(2000)
             .style("opacity", 1.0)
+         
     });
 
 scene.append("g").append("text")
@@ -532,6 +614,12 @@ scene.append("g").append("text")
     .attr("font-weight", "bold")
     .attr("fill", "black")
     .text("Self-Harm")
+    .on("mouseover", function(d) { 
+        d3.select("#SelfHarmButton").style("opacity", 0.5)
+        })
+    .on("mouseout", function(d) { 
+            d3.select("#SelfHarmButton").style("opacity", 0.8)
+        })
     .on("click", function(d) {
 
         d3.selectAll("rect").style("opacity", 0.0)

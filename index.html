@@ -21,12 +21,18 @@
         <p>
             This is where your content goes.
         </p>
-	<p>
-           <a href ="https://sarahaliene.github.io/Narrative-Visualization/scene2">Next</a>
+
+        <p>
+            
+			<a href="https://sarahaliene.github.io/Narrative-Visualization/scene3">Next</a>
+
         </p>
     </main>
 
 <div id = "svgcontainer">
+</div>
+
+<div id = "legendcontainer">
 </div>
 
 <script>
@@ -84,7 +90,7 @@ var categories = ([
 [2022,1346640,55111,115695,529456,58343]
 	]);
 
-var w = 900;
+var w = 1200;
 var h = 600;
 var m = 50;
 
@@ -95,6 +101,9 @@ var scene = d3.select("#svgcontainer")
 	.attr("height", h)
 	.append("g")
 	.attr("transform","translate("+m+","+m+")");
+
+var labels = ["Assault","Legal Intervention","Sexual Assault","Other","Self-Harm"];
+var lcolors = ["#e8adaa","#7d1b7e","#b93b8f","#78c7c7","#fc6c85"];
 
 
 var xScale = d3.scaleBand().domain([2001,
@@ -119,109 +128,454 @@ var xScale = d3.scaleBand().domain([2001,
 2020,
 2021,
 2022
-]).range([50,w - 50]).padding(0.3);
+]).range([50,1000]).padding(0.3);
 var xAxis = d3.axisBottom().scale(xScale);
 
-var yScale = d3.scaleLinear().domain([0,2500000]).range([h - 75, 0]);
+var yScale = d3.scaleLinear().domain([0,2500000]).range([h - 75, 50]);
 var yAxis = d3.axisLeft().scale(yScale);
 
+var group0 = scene.append("g");
 
-scene.selectAll("rect").data(data).enter().append("rect")
+group0.selectAll("rect").data(data).enter().append("rect")
 	.attr("x", function(d) {return xScale(d[0]);})
 	.attr("y", function(d) {return yScale(d[1]);})
 	.attr("width", xScale.bandwidth())
 	.attr("height", function(d) {return yScale(h) - (yScale(d[1]));})
-	.attr("fill", "#C5908E")
-	.on("mouseover", function(d) { 
-			var x = parseFloat(d3.select(this).attr("x")) - xScale.bandwidth() * 2;
-			var y = parseFloat(d3.select(this).attr("y")) - 30;
-			d3.select(this).attr("fill", "#fdeef4");
-			scene.append("rect")
-				.attr("id", "box")
-				.attr("x",x)
-				.attr("y",y)
-				.attr("width", xScale.bandwidth() * 3)
-				.attr("height", xScale.bandwidth())
-				.attr("fill", "ivory")
-			scene.append("text")
-				.attr("id", "tooltip")
-				.attr("x", x + 38)
-				.attr("y", y + 19)
-				.attr("text-anchor", "middle")
-				.attr("font-family", "sans-serif")
-				.attr("font-size", "16px")
-				.attr("font-weight", "bold")
-				.attr("fill", "black")
-				.text(d[1]);})
-	.on("mouseout", function(d) { 
-			d3.select(this).attr("fill", "#C5908E");
-			d3.select("#tooltip").remove();
-			d3.select("#box").remove();})
-	.on("click", function(d) {
+	.attr("fill", "#C5908E");
 		
-		var group1 = scene.append("g");
+var group1 = scene.append("g");
 
-		group1.selectAll("rect").data(categories).enter().append("rect")
-			.transition()
-			.duration(2000)
-			.attr("x", function(d) {return xScale(d[0]);})
-			.attr("y", function(d) {return yScale(d[4]);})
-			.attr("width", xScale.bandwidth())
-			.attr("height", function(d) {return yScale(h) - (yScale(d[4]));})
-			.attr("fill", "#fc6c85");
-		
+group1.selectAll("rect").data(categories).enter().append("rect")
+	.attr("x", function(d) {return xScale(d[0]);})
+	.attr("y", function(d) {return yScale(d[4]);})
+	.attr("width", xScale.bandwidth())
+	.attr("height", function(d) {return yScale(h) - (yScale(d[4]));})
+	.style("opacity", 0.0)
+	.attr("fill", "#fc6c85");
 
-		var group2 = scene.append("g");
+var group2 = scene.append("g");
 
-		group2.selectAll("rect").data(categories).enter().append("rect")
-			.transition().delay(2000)
-			.duration(2000)
-			.attr("x", function(d) {return xScale(d[0]);})
-			.attr("y", function(d) {return yScale(d[4] + d[5]);})
-			.attr("width", xScale.bandwidth())
-			.attr("height", function(d) {return yScale(h) - yScale(d[5]);})
-			.attr("fill", "#78c7c7");
+group2.selectAll("rect").data(categories).enter().append("rect")
+	.attr("x", function(d) {return xScale(d[0]);})
+	.attr("y", function(d) {return yScale(d[4] + d[5]);})
+	.attr("width", xScale.bandwidth())
+	.attr("height", function(d) {return yScale(h) - yScale(d[5]);})
+	.style("opacity", 0.0)
+	.attr("fill", "#78c7c7");
+
+var group2v2 = scene.append("g");
+
+group2v2.selectAll("rect").data(categories).enter().append("rect")
+	.attr("x", function(d) {return xScale(d[0]);})
+	.attr("y", function(d) {return yScale(d[5]);})
+	.attr("width", xScale.bandwidth())
+	.attr("height", function(d) {return yScale(h) - yScale(d[5]);})
+	.style("opacity", 0.0)
+	.attr("fill", "#78c7c7");
 
 
-		var group3 = scene.append("g");
+var group3 = scene.append("g");
 
-		group3.selectAll("rect").data(categories).enter().append("rect")
-			.transition().delay(4000)
-			.duration(2000)
-			.attr("x", function(d) {return xScale(d[0]);})
-			.attr("y", function(d) {return yScale(d[4] + d[3] + d[5]);})
-			.attr("width", xScale.bandwidth())
-			.attr("height", function(d) {return yScale(h) - yScale(d[3]);})
-			.attr("fill", "#b93b8f");
+group3.selectAll("rect").data(categories).enter().append("rect")
+	.attr("x", function(d) {return xScale(d[0]);})
+	.attr("y", function(d) {return yScale(d[4] + d[3] + d[5]);})
+	.attr("width", xScale.bandwidth())
+	.attr("height", function(d) {return yScale(h) - yScale(d[3]);})
+	.style("opacity", 0.0)
+	.attr("fill", "#b93b8f");
 
-		var group4 = scene.append("g");
+var group3v2 = scene.append("g");
 
-		group4.selectAll("rect").data(categories).enter().append("rect")
-			.transition().delay(6000)
-			.duration(2000)
-			.attr("x", function(d) {return xScale(d[0]);})
-			.attr("y", function(d) {return yScale(d[5] + d[2] + d[3] + d[4]);})
-			.attr("width", xScale.bandwidth())
-			.attr("height", function(d) {return yScale(h) - yScale(d[2]);})
-			.attr("fill", "#7d1b7e");
+group3v2.selectAll("rect").data(categories).enter().append("rect")
+	.attr("x", function(d) {return xScale(d[0]);})
+	.attr("y", function(d) {return yScale(d[3]);})
+	.attr("width", xScale.bandwidth())
+	.attr("height", function(d) {return yScale(h) - yScale(d[3]);})
+	.style("opacity", 0.0)
+	.attr("fill", "#b93b8f");
 
-		var group5 = scene.append("g");
+var group4 = scene.append("g");
 
-		group5.selectAll("rect").data(categories).enter().append("rect")
-			.transition().delay(8000)
-			.duration(2000)
-			.attr("x", function(d) {return xScale(d[0]);})
-			.attr("y", function(d) {return yScale(d[1] + d[2] + d[3] + d[4] + d[5]);})
-			.attr("width", xScale.bandwidth())
-			.attr("height", function(d) {return yScale(h) - yScale(d[1]);})
-			.attr("fill", "#e8adaa");});
+group4.selectAll("rect").data(categories).enter().append("rect")
+	.attr("x", function(d) {return xScale(d[0]);})
+	.attr("y", function(d) {return yScale(d[5] + d[2] + d[3] + d[4]);})
+	.attr("width", xScale.bandwidth())
+	.attr("height", function(d) {return yScale(h) - yScale(d[2]);})
+	.style("opacity", 0.0)
+	.attr("fill", "#7d1b7e");
+
+var group4v2 = scene.append("g");
+
+group4v2.selectAll("rect").data(categories).enter().append("rect")
+	.attr("x", function(d) {return xScale(d[0]);})
+	.attr("y", function(d) {return yScale(d[2]);})
+	.attr("width", xScale.bandwidth())
+	.attr("height", function(d) {return yScale(h) - yScale(d[2]);})
+	.style("opacity", 0.0)
+	.attr("fill", "#7d1b7e");
+
+var group5 = scene.append("g");
+
+group5.selectAll("rect").data(categories).enter().append("rect")
+	.attr("x", function(d) {return xScale(d[0]);})
+	.attr("y", function(d) {return yScale(d[1] + d[2] + d[3] + d[4] + d[5]);})
+	.attr("width", xScale.bandwidth())
+	.attr("height", function(d) {return yScale(h) - yScale(d[1]);})
+	.style("opacity", 0.0)
+	.attr("fill", "#e8adaa");
+
+var group5v2 = scene.append("g");
+
+group5v2.selectAll("rect").data(categories).enter().append("rect")
+	.attr("x", function(d) {return xScale(d[0]);})
+	.attr("y", function(d) {return yScale(d[1]);})
+	.attr("width", xScale.bandwidth())
+	.attr("height", function(d) {return yScale(h) - (yScale(d[1]));})
+	.style("opacity", 0.0)
+	.attr("fill", "#E8ADAA");
 
 
 scene.append("g").attr("transform","translate("+50+","+0+")").call(d3.axisLeft(yScale));
 
 scene.append("g").attr("transform","translate("+0+","+525+")").call(d3.axisBottom(xScale));
 
+//Set up Main Button
+scene.append("g").append("rect")
+    .attr("x", 110)
+    .attr("y", 0)
+    .attr("width", 100)
+    .attr("height", 35)
+    .attr("id","MainButton")
+    .attr("fill", "linen")
+    .attr("stroke", "black")
+    .on("click", function(d) {
+        group1.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        group2.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        group3.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        group4.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        group5.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        })
 
+var button = scene.append("g").append("rect")
+    .attr("x", 110)
+    .attr("y", 0)
+    .attr("width", 100)
+    .attr("height", 35)
+    .attr("id","MainButton")
+    .attr("fill", "linen")
+    .attr("stroke", "black")
+    .on("click", function(d) {
+        group1.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        group2.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        group3.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        group4.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        group5.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        })
+
+scene.append("g").append("text")
+    .attr("x", 160)
+    .attr("y",22)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold")
+    .attr("fill", "black")
+    .text("All")
+    .on("click", function(d) {
+        group1.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        group2.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        group3.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        group4.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        group5.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        })
+//Add buttons
+
+var button1 = scene.append("g").append("rect")
+    .attr("x", 225)
+    .attr("y", 0)
+    .attr("width", 110)
+    .attr("height", 35)
+    .attr("id","AssaultButton")
+    .attr("fill","#C5908E")
+    .style("opacity", 0.8)
+    .attr("stroke","black")
+    .on("click", function(d) {
+
+        d3.selectAll("rect").style("opacity", 0.0)
+        button.style("opacity", 1.0)
+        button1.style("opacity", 1.0)
+        button2.style("opacity", 1.0)
+        button3.style("opacity", 1.0)
+        button4.style("opacity", 1.0)
+        button5.style("opacity", 1.0)
+        group5v2.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        
+    });
+
+scene.append("g").append("text")
+    .attr("x", 280)
+    .attr("y",22)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold")
+    .attr("fill", "black")
+    .text("Assault")
+    .on("click", function(d) {
+
+        d3.selectAll("rect").style("opacity", 0.0)
+        button.style("opacity", 1.0)
+        button1.style("opacity", 1.0)
+        button2.style("opacity", 1.0)
+        button3.style("opacity", 1.0)
+        button4.style("opacity", 1.0)
+        button5.style("opacity", 1.0)
+        group5v2.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+        
+    });
+
+var button2 = scene.append("g").append("rect")
+    .attr("x", 350)
+    .attr("y", 0)
+    .attr("width", 110)
+    .attr("height", 35)
+    .attr("id","LegalInterventionButton")
+    .attr("fill","#7d1b7e")
+    .style("opacity", 0.8)
+    .attr("stroke","black")
+    .on("click", function(d) {
+
+        d3.selectAll("rect").style("opacity", 0.0)
+        button.style("opacity", 1.0)
+        button1.style("opacity", 1.0)
+        button2.style("opacity", 1.0)
+        button3.style("opacity", 1.0)
+        button4.style("opacity", 1.0)
+        button5.style("opacity", 1.0)
+        group4v2.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+    });
+
+scene.append("g").append("text")
+    .attr("x", 405)
+    .attr("y",22)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold")
+    .attr("fill", "black")
+    .text("Legal Intervention")
+    .on("click", function(d) {
+
+        d3.selectAll("rect").style("opacity", 0.0)
+        button.style("opacity", 1.0)
+        button1.style("opacity", 1.0)
+        button2.style("opacity", 1.0)
+        button3.style("opacity", 1.0)
+        button4.style("opacity", 1.0)
+        button5.style("opacity", 1.0)
+        group4v2.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+    });
+
+var button3 = scene.append("g").append("rect")
+    .attr("x", 475)
+    .attr("y", 0)
+    .attr("width", 110)
+    .attr("height", 35)
+    .attr("id","SexualAssaultButton")
+    .attr("fill","#b93b8f")
+    .style("opacity", 0.8)
+    .attr("stroke","black")
+    .on("click", function(d) {
+
+        d3.selectAll("rect").style("opacity", 0.0)
+        button.style("opacity", 1.0)
+        button1.style("opacity", 1.0)
+        button2.style("opacity", 1.0)
+        button3.style("opacity", 1.0)
+        button4.style("opacity", 1.0)
+        button5.style("opacity", 1.0)
+        group3v2.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+    });
+
+scene.append("g").append("text")
+    .attr("x", 530)
+    .attr("y",22)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold")
+    .attr("fill", "black")
+    .text("Sexual Assault")
+    .on("click", function(d) {
+
+        d3.selectAll("rect").style("opacity", 0.0)
+        button.style("opacity", 1.0)
+        button1.style("opacity", 1.0)
+        button2.style("opacity", 1.0)
+        button3.style("opacity", 1.0)
+        button4.style("opacity", 1.0)
+        button5.style("opacity", 1.0)
+        group3v2.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+    });
+
+var button4 = scene.append("g").append("rect")
+    .attr("x", 600)
+    .attr("y", 0)
+    .attr("width", 110)
+    .attr("height", 35)
+    .attr("id","OtherButton")
+    .attr("fill","#78c7c7")
+    .style("opacity", 0.8)
+    .attr("stroke","black")
+    .on("click", function(d) {
+
+        d3.selectAll("rect").style("opacity", 0.0)
+        button.style("opacity", 1.0)
+        button1.style("opacity", 1.0)
+        button2.style("opacity", 1.0)
+        button3.style("opacity", 1.0)
+        button4.style("opacity", 1.0)
+        button5.style("opacity", 1.0)
+        group2v2.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+    });
+
+scene.append("g").append("text")
+    .attr("x", 653)
+    .attr("y",22)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold")
+    .attr("fill", "black")
+    .text("Other")
+    .on("click", function(d) {
+
+        d3.selectAll("rect").style("opacity", 0.0)
+        button.style("opacity", 1.0)
+        button1.style("opacity", 1.0)
+        button2.style("opacity", 1.0)
+        button3.style("opacity", 1.0)
+        button4.style("opacity", 1.0)
+        button5.style("opacity", 1.0)
+        group2v2.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+    });
+
+var button5 = scene.append("g").append("rect")
+    .attr("x", 725)
+    .attr("y", 0)
+    .attr("width", 110)
+    .attr("height", 35)
+    .attr("id","SelfHarmButton")
+    .attr("fill","#fc6c85")
+    .style("opacity", 0.8)
+    .attr("stroke","black")
+    .on("click", function(d) {
+
+        d3.selectAll("circle").style("opacity", 0.0)
+        button.style("opacity", 1.0)
+        button1.style("opacity", 1.0)
+        button2.style("opacity", 1.0)
+        button3.style("opacity", 1.0)
+        button4.style("opacity", 1.0)
+        button5.style("opacity", 1.0)
+        group1.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+    });
+
+scene.append("g").append("text")
+    .attr("x", 778)
+    .attr("y",22)
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold")
+    .attr("fill", "black")
+    .text("Self-Harm")
+    .on("click", function(d) {
+
+        d3.selectAll("rect").style("opacity", 0.0)
+        button.style("opacity", 1.0)
+        button1.style("opacity", 1.0)
+        button2.style("opacity", 1.0)
+        button3.style("opacity", 1.0)
+        button4.style("opacity", 1.0)
+        button5.style("opacity", 1.0)
+        group1.selectAll("rect")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1.0)
+    });
 
 </script>
 

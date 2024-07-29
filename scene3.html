@@ -24,8 +24,10 @@
             Reported Methods of Inflicting Self-Harm
         </h2>
         <p>
-            The methods in which self-harm is inflicted have also been changing over the years. <br>
-            For more information on mental illness and self-harm, visit <a href ="https://www.nami.org/"> NAMI's </a> website.
+            The methods in which self-harm is inflicted have also been changing over the years.
+            For more information on mental illness and self-harm or to get help, visit <a href ="https://www.nami.org/"> NAMI's </a> website.<br>
+            If you or another is in crisis, the <a href = "https://988lifeline.org/?utm_source=google&utm_medium=web&utm_campaign=onebox">
+                988 hotline </a> is always available.
         </p>
         <p>
            <a href = "https://sarahaliene.github.io/Narrative-Visualization/scene-transition">Previous</a>
@@ -127,7 +129,7 @@ d3.select("#chartcontainer")
 var pie = d3.pie();
 var arc = d3.arc().innerRadius(0).outerRadius(200);
 
-d3.select("#chartcontainer").select("svg").selectAll("path").data(pie(data2022)).enter().append("path")
+d3.select("#chartcontainer").select("svg").selectAll("path").data(pie(data2001)).enter().append("path")
     .attr("d", arc)
     .attr("fill", function(d,i) {return colors[i];})
     .attr("transform", "translate("+600+","+200+")");;

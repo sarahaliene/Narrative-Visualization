@@ -95,8 +95,32 @@ var yScale = d3.scaleLinear().domain([-80,150]).range([h - 75, 0]);
 var yAxis = d3.axisLeft().scale(yScale);
 
 scene.append("g").attr("transform","translate("+50+","+0+")").call(d3.axisLeft(yScale));
+scene.append("g").append("text")
+	.attr("x", 0)
+	.attr("y", 0)
+	.attr("text-anchor", "left")
+    	.attr("font-family", "sans-serif")
+	.attr("font-size", "16px")
+	.attr("fill", "black")
+	.text("Percent");
+scene.append("g").append("text")
+	.attr("x", 0)
+	.attr("y", 20)
+	.attr("text-anchor", "left")
+    	.attr("font-family", "sans-serif")
+	.attr("font-size", "16px")
+	.attr("fill", "black")
+	.text("Change");
 
 scene.append("g").attr("transform","translate("+0+","+525+")").call(d3.axisBottom(xScale));
+scene.append("g").append("text")
+	.attr("x", 400)
+	.attr("y", 570)
+	.attr("text-anchor", "left")
+    .attr("font-family", "sans-serif")
+	.attr("font-size", "16px")
+	.attr("fill", "black")
+	.text("Year Range");
 
 //Assault Group
 var group1 = scene.append("g");

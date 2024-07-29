@@ -71,7 +71,7 @@ var data = [
             ];
 
 var w = 1400;
-var h = 600;
+var h = 700;
 var m = 50;
 
 var labels = ["Assault","Legal Intervention","Sexual Assault","Other","Self-Harm"];
@@ -91,12 +91,12 @@ var xScale = d3.scaleBand().domain(["2001-2002","2002-2003","2003-2004","2004-20
 "2017-2018","2018-2019","2019-2020","2020-2021","2021-2022"]).range([50,1150]).padding(0.3);
 var xAxis = d3.axisBottom().scale(xScale);
 
-var yScale = d3.scaleLinear().domain([-80,150]).range([h - 75, 0]);
+var yScale = d3.scaleLinear().domain([-80,150]).range([525, 0]);
 var yAxis = d3.axisLeft().scale(yScale);
 
 scene.append("g").attr("transform","translate("+50+","+0+")").call(d3.axisLeft(yScale));
 scene.append("g").append("text")
-	.attr("x", 0)
+	.attr("x", -20)
 	.attr("y", 0)
 	.attr("text-anchor", "left")
     	.attr("font-family", "sans-serif")
@@ -104,7 +104,7 @@ scene.append("g").append("text")
 	.attr("fill", "black")
 	.text("Percent");
 scene.append("g").append("text")
-	.attr("x", 0)
+	.attr("x", -20)
 	.attr("y", 20)
 	.attr("text-anchor", "left")
     	.attr("font-family", "sans-serif")
